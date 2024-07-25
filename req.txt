@@ -1,0 +1,12 @@
+requests
+numpy
+sklearn
+pandas
+numpy
+xlrd
+imblearn
+boto3
+mcfly==1.0.4
+Keras==2.2.4
+apscheduler==3.5.3
+memory_profiler
