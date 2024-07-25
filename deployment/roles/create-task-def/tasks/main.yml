@@ -1,0 +1,62 @@
+---
+
+- name: Create task definition for multiclass predictor
+  ecs_taskdefinition:
+    containers:
+      - name: "{{predictor_task_name}}"
+        essential: true
+        image: ""
+        environment:
+          - { name: "STAGE", value: "{{ STAGE }}"}
+          - { name: "SOURCE_QUEUE", value: "{{ SOURCE_QUEUE }}"}
+          - { name: "S3_BUCKET", value: "{{ S3_BUCKET }}"}
+          - { name: "ACCESS_KEY_ID", value: ""}
+          - { name: "SECRET_ACCESS_KEY", value: ""}
+          - { name: "VERSION", value: "{{img_version}}"}
+        logConfiguration:
+          logDriver: awslogs
+          options:
+            awslogs-group: ecs/multiclass/segments
+            awslogs-region: eu-central-1
+            awslogs-stream-prefix: ecs
+    region: eu-central-1
+    cpu: 2048
+    memory: 4GB
+    launch_type: FARGATE
+    execution_role_arn: 
+    family: "{{predictor_task_name}}"
+    state: present
+    force_create: true
+    network_mode: awsvpc
+  register: taskdef
+
+- name: Create task definition for multiclass processor
+  ecs_taskdefinition:
+    containers:
+      - name: "{{processor_task_name}}"
+        essential: true
+        image: ""
+        environment:
+          - { name: "PROCESSOR", value: true }
+          - { name: "STAGE", value: "prod"}
+          - { name: "S3_BUCKET", value: "{{ S3_BUCKET }}"}
+          - { name: "ACCESS_KEY_ID", value: ""}
+          - { name: "SECRET_ACCESS_KEY", value: ""}
+          - { name: "VERSION", value: "{{img_version}}"}
+        logConfiguration:
+          logDriver: awslogs
+          options:
+            awslogs-group: ecs/multiclass/segments
+            awslogs-region: eu-central-1
+            awslogs-stream-prefix: ecs
+    region: eu-central-1
+    cpu: 4096
+    memory: 16GB
+    launch_type: FARGATE
+    execution_role_arn: 
+    family: "{{processor_task_name}}"
+    state: present
+    force_create: true
+    network_mode: awsvpc
+  register: processordef
+

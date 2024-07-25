@@ -1,0 +1,15 @@
+{
+  "acl_conf_name": "",
+  "acl_group_name": "",
+  "ami_id": "",
+  "cluster_name": "",
+  "ec2_name": "",
+  "predictor_service_name": "",
+  "processor_service_name": "",
+  "predictor_task_name": "",
+  "processor_task_name": "",
+  "S3_BUCKET": "",
+  "desired_count": 1,
+  "STAGE": "stage",
+  "SOURCE_QUEUE": ""
+}

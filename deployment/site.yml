@@ -1,0 +1,6 @@
+- hosts: localhost
+
+  roles:
+     - {role: create-cluster, tags: ['all', 'cluster', 'ecs']}
+     - {role: create-task-def, tags: ['all', 'task', 'ecs']}
+     - {role: multiclass-prediction, tags: ['all', 'service', 'ecs']}

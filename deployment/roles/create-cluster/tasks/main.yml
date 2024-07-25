@@ -1,0 +1,8 @@
+---
+
+- name: Create ecs cluster
+  ecs_cluster:
+    name: "{{cluster_name}}"
+    state: present
+    region: eu-central-1
+  register: ecscl
